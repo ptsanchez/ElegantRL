@@ -1,12 +1,21 @@
 # ML framework
 torch
 
-# data handling
+# Data handling
 numpy
+pandas
+pyarrow
 
-# plot/simulation
+# Plotting & Visualization
 matplotlib
+seaborn
+
+# Simulation & RL
 gymnasium
 
-# profiling (no necessary)
+# Utilities
+tqdm
 wandb
+
+# Notebook support (for VM)
+ipykernel
