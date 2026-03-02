@@ -100,6 +100,9 @@ class StockTradingEnv:
         truncated = False
         return state, reward, terminal, truncated, {}
 
+    def render(self):
+        print(f"| Day: {self.day:4}  Total Asset: {self.total_asset:10.2f}  Amount: {self.amount:10.2f}")
+
     def load_data_from_disk(self, tech_id_list=None) -> Tuple[ARY, ARY]:
         tech_id_list = [
             "macd", "boll_ub", "boll_lb", "rsi_30", "cci_30", "dx_30", "close_30_sma", "close_60_sma",
