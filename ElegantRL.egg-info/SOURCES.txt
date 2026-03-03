@@ -21,8 +21,10 @@ elegantrl/agents/__init__.py
 elegantrl/envs/CustomGymEnv.py
 elegantrl/envs/PlanIsaacGymEnv.py
 elegantrl/envs/PointChasingEnv.py
+elegantrl/envs/SingleStockTradingEnv.py
 elegantrl/envs/StockTradingEnv.py
 elegantrl/envs/__init__.py
+elegantrl/envs/inspect_env_data.py
 elegantrl/train/__init__.py
 elegantrl/train/config.py
 elegantrl/train/evaluator.py
@@ -36,6 +38,8 @@ examples/demo_DDPG_TD3_SAC_with_PER.py
 examples/demo_DQN_variants.py
 examples/demo_DQN_variants_embed.py
 examples/demo_FinRL_ElegantRL_China_A_shares.py
+examples/demo_single_stock_trading.py
+examples/demo_single_stock_trading_mp.py
 examples/list_gym_envs.py
 examples/plan_BipedalWalker-v3.py
 examples/plan_DDPG_H.py
@@ -45,6 +49,7 @@ examples/plan_PPO_H.py
 examples/plan_PaperTradingEnv_PPO.py
 examples/plan_mujoco_draw_obj_h.py
 examples/plan_mujoco_render.py
+examples/rl_env_sanity_check_script.py
 examples/tutorial_Hopper-v3.py
 examples/tutorial_LunarLanderContinous-v2.py
 rlsolver/__init__.py
