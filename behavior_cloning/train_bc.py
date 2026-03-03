@@ -1,7 +1,7 @@
 import torch as th
 import torch.nn as nn
 from torch.utils.data import DataLoader, TensorDataset
-from elegantrl.agents.AgentPPO import AgentPPO
+from elegantrl.agents.AgentPPO import AgentDiscretePPO
 from elegantrl.train.config import Config
 import numpy as np
 
@@ -46,7 +46,7 @@ def train_bc():
     # Simple net_dims
     net_dims = [256, 256]
     
-    agent = AgentPPO(net_dims, state_dim, action_dim, gpu_id=0, args=args)
+    agent = AgentDiscretePPO(net_dims, state_dim, action_dim, gpu_id=0, args=args)
     agent.act.to(device)
     
     optimizer = th.optim.Adam(agent.act.parameters(), lr=LEARNING_RATE)
@@ -69,7 +69,10 @@ def train_bc():
             # Looking at ActorPPO in AgentPPO.py: 
             # It usually has a get_action or forward method.
             # Let's assume it has a forward method that returns logits for discrete
-            logits = agent.act(batch_states)
+            #logits = agent.act(batch_states)
+            
+            states_norm = agent.act.norm(batch_states) # Manually apply actor's state normalization
+            logits = agent.act.net(states_norm) # Get raw logits before sampling action
             
             loss = criterion(logits, batch_actions)
             

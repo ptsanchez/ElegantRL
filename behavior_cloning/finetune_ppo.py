@@ -1,5 +1,5 @@
 import torch as th
-from elegantrl.agents.AgentPPO import AgentPPO
+from elegantrl.agents.AgentPPO import AgentDiscretePPO
 from elegantrl.train.config import Config
 from elegantrl.train.run import train_agent
 from elegantrl.envs.SingleStockTradingEnv import SingleStockTradingEnv
@@ -10,7 +10,7 @@ DATA_PATH = "./data"
 
 def finetune_ppo():
     # 1. Setup Config
-    args = Config(agent_class=AgentPPO, env_class=SingleStockTradingEnv)
+    args = Config(agent_class=AgentDiscretePPO, env_class=SingleStockTradingEnv)
     args.env_args = {
         'data_path': DATA_PATH,
         'if_day_trade': True,
@@ -31,7 +31,7 @@ def finetune_ppo():
     args.learning_rate = 2e-5 # Lower learning rate for fine-tuning
     
     # 2. Initialize Agent
-    agent = AgentPPO(args.net_dims, args.state_dim, args.action_dim, gpu_id=0, args=args)
+    agent = AgentDiscretePPO(args.net_dims, args.state_dim, args.action_dim, gpu_id=0, args=args)
     
     # 3. Load BC Weights
     print(f"Loading BC-trained Actor weights from {BC_MODEL_PATH}...")
