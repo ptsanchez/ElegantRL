@@ -21,3 +21,4 @@ runs/
 .venv
 data/
 plans/
+trained_agents/
