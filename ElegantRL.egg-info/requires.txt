@@ -1,4 +1,4 @@
-th
-numpy
 gymnasium
 matplotlib
+numpy
+th
