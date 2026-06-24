@@ -17,3 +17,8 @@ runs/
 # JetBrains folder
 .idea/
 .env-erl/
+
+.venv
+data/
+plans/
+trained_agents/

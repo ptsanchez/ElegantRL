@@ -65,6 +65,7 @@ class StockTradingEnv:
 
         self.rewards = []
         self.total_asset = (self.close_ary[self.day] * self.shares).sum() + self.amount
+        self.total_asset_list = [self.total_asset, ]
         return self.get_state(), {}
 
     def get_state(self) -> ARY:
@@ -99,6 +100,7 @@ class StockTradingEnv:
         reward = (total_asset - self.total_asset) * self.reward_scale
         self.rewards.append(reward)
         self.total_asset = total_asset
+        self.total_asset_list.append(total_asset)
 
         terminal = self.day == self.max_step
         if terminal:
@@ -108,6 +110,24 @@ class StockTradingEnv:
         state = self.get_state()
         truncated = False
         return state, reward, terminal, truncated, {}
+
+    def render(self):
+        #print(f"| Day: {self.day:4}  Total Asset: {self.total_asset:10.2f}  Amount: {self.amount:10.2f}")
+        
+        if self.day % 50 == 0 or self.day == self.max_step:
+            import matplotlib as mpl
+            mpl.use('Agg')
+            import matplotlib.pyplot as plt
+            
+            plt.figure(figsize=(10, 6))
+            plt.plot(self.total_asset_list, label='Total Asset')
+            plt.title(f'Day {self.day}  Total Asset {self.total_asset:.2f}')
+            plt.xlabel('Day')
+            plt.ylabel('Value')
+            plt.grid()
+            plt.legend()
+            plt.savefig('StockTradingEnv_render.png')
+            plt.close()
 
     def load_data_from_disk(self, tech_id_list=None) -> Tuple[ARY, ARY]:
         tech_id_list = [
@@ -646,7 +666,7 @@ def run(gpu_id: int = 0):
     args.target_step = max_step * 4
     args.reward_scale = 2 ** -7
     args.learning_rate = 2 ** -14
-    args.break_step = int(5e5)
+    args.break_step = 50000 # originally 5e5
 
     args.learner_gpus = gpu_id
     args.random_seed += gpu_id + 1943
